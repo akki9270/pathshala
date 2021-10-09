@@ -57,6 +57,17 @@ async function init_sequelize() {
       dialect: dialect,
       port: port,
       logging: false,
+      dialectOptions: {
+        useUTC: false, //for reading from database
+        dateStrings: true,
+        typeCast: function (field, next) { // for reading from database
+            if (field.type === 'DATETIME') {
+              return field.string()
+            }
+              return next()
+            },
+        },
+        timezone: '+05:30'
     });
   } catch (err) {
     console.log("err ", err);

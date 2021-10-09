@@ -99,6 +99,13 @@ async function InsertData() {
                 user.last_name = names.length > 2 ? names[2] : '';
                 user.role = 'student';
             }
+            if (user.dob == '' || !user.dob) {
+                user.date_of_birth = null;
+            } else {
+                let d = new Date(user.dob)
+                let dateArray = [`${d.getFullYear()}-${(d.getMonth()+1)}-${d.getDate()}`];
+                user.date_of_birth = dateArray[0];
+            }
             user.profile_image = imageUrl + user.id + imageSuffix;
             user.display_name = user.displayName;
             // console.log(' user at index ', index);
