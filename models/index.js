@@ -58,7 +58,7 @@ async function init_sequelize() {
       port: port,
       logging: false,
       dialectOptions: {
-        useUTC: false, //for reading from database
+        // useUTC: false, //for reading from database
         dateStrings: true,
         typeCast: function (field, next) { // for reading from database
             if (field.type === 'DATETIME') {
@@ -93,7 +93,9 @@ async function init_sequelize() {
     }
   });
   db.sequelize = sequelize;
-  let connect = await sequelize.sync({ logging: console.log, force: true});
+  let connect = await sequelize.sync({ 
+    // logging: console.log, force: true
+  });
 
   console.log('connect ');
   app.startServer();

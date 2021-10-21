@@ -2766,5 +2766,41 @@
         "email": "",
         "mobile": "9904877455",
         "dob": "16/Dec/2016"
+    },
+    {
+        "id": "1001",
+        "fullName": "હિતેશ વિનોદચંદ્ર શાહ",
+        "displayName": "હિતેશ શાહ",
+        "email": "hitesh.vidhikar@gmail.com",
+        "mobile": "9825303848",
+        "dob": "16/Oct/1969",
+        "role": "Teacher"
+    },
+    {
+        "id": "1002",
+        "fullName": "જ્યોતિબેન વિજયભાઈ શાહ",
+        "displayName": "જ્યોતિબેન શાહ",
+        "email": "jyotivshah@gmail.com",
+        "mobile": "9586524101",
+        "dob": "19/Aug/1968",
+        "role": "Teacher"
+    },
+    {
+        "id": "1003",
+        "fullName": "દીપ્તિબેન ભદ્રેશભાઈ શાહ",
+        "displayName": "દીપ્તિબેન શાહ",
+        "email": "bhadreshdpshah@rediffmail.com",
+        "mobile": "9586619643",
+        "dob": "18/Oct/1967",
+        "role": "Teacher"
+    },
+    {
+        "id": "1004",
+        "fullName": "કુમારપાળ મધુસુદન ચુડગર",
+        "displayName": "કુમારપાળ ચુડગર",
+        "email": "chudgar.kumar@gmail.com",
+        "mobile": "9428068086",
+        "dob": "22/Feb/1956",
+        "role": "Teacher"
     }
 ]

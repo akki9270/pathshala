@@ -18,11 +18,13 @@ module.exports = function (Sequelize, Types) {
     });
     UserSutra.belongsTo(User(Sequelize, Types), {
         foreignKey: 'approved_by',
-        targetKey: 'id'
+        targetKey: 'id',
+        as: 'Teacher'
     });
     UserSutra.belongsTo(User(Sequelize, Types), {
         foreignKey: 'user_id',
-        targetKey: 'id'
+        targetKey: 'id',
+        as: 'Student'
     });
     UserSutra.belongsTo(Sutra(Sequelize, Types), {
         foreignKey: 'sutra_id',

@@ -8,6 +8,7 @@ const expressJwt = require("express-jwt");
 const authRoutes = require('./routes/auth.routes');
 const attendenceRoutes = require('./routes/attendence.routes');
 const userRoutes = require("./routes/users.routes");
+const sutraRoutes = require("./routes/sutra.route");
 const userService = require('./service/user.service');
 const sutraService = require('./service/sutra.service');
 // node_xj = require("xls-to-json");
@@ -62,6 +63,7 @@ app.use(bodyparser.json());
 app.use("/api", authRoutes);
 app.use("/api", attendenceRoutes);
 app.use("/api", userRoutes);
+app.use("/api", sutraRoutes);
 
 // convert xls to json
 // node_xj(
@@ -97,7 +99,7 @@ async function InsertData() {
                 user.first_name = names[0];
                 user.middle_name = names.length > 1 ? names[1] : '';
                 user.last_name = names.length > 2 ? names[2] : '';
-                user.role = 'student';
+                user.role = user.role ? user.role : 'student';
             }
             if (user.dob == '' || !user.dob) {
                 user.date_of_birth = null;
@@ -122,9 +124,18 @@ async function InsertData() {
     if (sutraData && !sutraData.length) {
         // insert static data.
         let sutraDataJson = require('./sutra.json');
-        sutraService.createSutra(sutraDataJson);
+        sutraDataJson.forEach( it => {
+            it["id"] = it.queue_number;
+            if(it.score == "") {
+                it.score = 0;
+            }
+            if (it.days_to_complete == "") {
+                it.days_to_complete = 0;
+            }
+        })
+       let result = await sutraService.createSutra(sutraDataJson);
+    //    console.log(' sutra Data', result);
     }
-    // console.log(' sutra Data', sutraData);
 }
 exports.startServer = () => {
     InsertData();

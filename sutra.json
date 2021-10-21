@@ -8,9 +8,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "2",
@@ -21,9 +22,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "3",
@@ -34,9 +36,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "4",
@@ -47,9 +50,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "5",
@@ -60,9 +64,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "6",
@@ -73,9 +78,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "7",
@@ -86,9 +92,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "8",
@@ -99,9 +106,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "9",
@@ -112,9 +120,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "10",
@@ -125,9 +134,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "11",
@@ -138,9 +148,10 @@
         "days_to_complete_1": "",
         "score_2": "",
         "days_to_complete_2": "",
+        "days_to_complete": "",
         "score_3": "",
         "days_to_complete_3": "",
-        "score_default": ""
+        "score": ""
     },
     {
         "queue_number": "12",
@@ -151,9 +162,10 @@
         "days_to_complete_1": "5",
         "score_2": "42",
         "days_to_complete_2": "7",
+        "days_to_complete": "7",
         "score_3": "35",
         "days_to_complete_3": "10",
-        "score_default": "30"
+        "score": "30"
     },
     {
         "queue_number": "13",
@@ -164,9 +176,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "14",
@@ -177,9 +190,10 @@
         "days_to_complete_1": "6",
         "score_2": "54",
         "days_to_complete_2": "9",
+        "days_to_complete": "9",
         "score_3": "45",
         "days_to_complete_3": "12",
-        "score_default": "40"
+        "score": "40"
     },
     {
         "queue_number": "15",
@@ -190,9 +204,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "16",
@@ -203,9 +218,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "17",
@@ -216,9 +232,10 @@
         "days_to_complete_1": "3",
         "score_2": "30",
         "days_to_complete_2": "5",
+        "days_to_complete": "5",
         "score_3": "25",
         "days_to_complete_3": "7",
-        "score_default": "20"
+        "score": "20"
     },
     {
         "queue_number": "18",
@@ -229,9 +246,10 @@
         "days_to_complete_1": "3",
         "score_2": "30",
         "days_to_complete_2": "5",
+        "days_to_complete": "5",
         "score_3": "25",
         "days_to_complete_3": "7",
-        "score_default": "20"
+        "score": "20"
     },
     {
         "queue_number": "19",
@@ -242,9 +260,10 @@
         "days_to_complete_1": "2",
         "score_2": "18",
         "days_to_complete_2": "3",
+        "days_to_complete": "3",
         "score_3": "15",
         "days_to_complete_3": "4",
-        "score_default": "12"
+        "score": "12"
     },
     {
         "queue_number": "20",
@@ -255,9 +274,10 @@
         "days_to_complete_1": "3",
         "score_2": "24",
         "days_to_complete_2": "4",
+        "days_to_complete": "4",
         "score_3": "20",
         "days_to_complete_3": "5",
-        "score_default": "15"
+        "score": "15"
     },
     {
         "queue_number": "21",
@@ -268,9 +288,10 @@
         "days_to_complete_1": "4",
         "score_2": "30",
         "days_to_complete_2": "5",
+        "days_to_complete": "5",
         "score_3": "25",
         "days_to_complete_3": "7",
-        "score_default": "20"
+        "score": "20"
     },
     {
         "queue_number": "22",
@@ -281,9 +302,10 @@
         "days_to_complete_1": "4",
         "score_2": "30",
         "days_to_complete_2": "5",
+        "days_to_complete": "5",
         "score_3": "25",
         "days_to_complete_3": "7",
-        "score_default": "20"
+        "score": "20"
     },
     {
         "queue_number": "23",
@@ -294,9 +316,10 @@
         "days_to_complete_1": "3",
         "score_2": "30",
         "days_to_complete_2": "5",
+        "days_to_complete": "5",
         "score_3": "25",
         "days_to_complete_3": "7",
-        "score_default": "20"
+        "score": "20"
     },
     {
         "queue_number": "24",
@@ -307,9 +330,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "25",
@@ -320,9 +344,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "26",
@@ -333,9 +358,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "27",
@@ -346,9 +372,10 @@
         "days_to_complete_1": "3",
         "score_2": "24",
         "days_to_complete_2": "4",
+        "days_to_complete": "4",
         "score_3": "20",
         "days_to_complete_3": "5",
-        "score_default": "15"
+        "score": "15"
     },
     {
         "queue_number": "28",
@@ -359,9 +386,10 @@
         "days_to_complete_1": "7",
         "score_2": "60",
         "days_to_complete_2": "10",
+        "days_to_complete": "10",
         "score_3": "50",
         "days_to_complete_3": "12",
-        "score_default": "45"
+        "score": "45"
     },
     {
         "queue_number": "29",
@@ -372,9 +400,10 @@
         "days_to_complete_1": "3",
         "score_2": "30",
         "days_to_complete_2": "5",
+        "days_to_complete": "5",
         "score_3": "25",
         "days_to_complete_3": "7",
-        "score_default": "20"
+        "score": "20"
     },
     {
         "queue_number": "30",
@@ -385,9 +414,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "31",
@@ -398,9 +428,10 @@
         "days_to_complete_1": "3",
         "score_2": "24",
         "days_to_complete_2": "4",
+        "days_to_complete": "4",
         "score_3": "20",
         "days_to_complete_3": "5",
-        "score_default": "15"
+        "score": "15"
     },
     {
         "queue_number": "32",
@@ -411,9 +442,10 @@
         "days_to_complete_1": "3",
         "score_2": "24",
         "days_to_complete_2": "4",
+        "days_to_complete": "4",
         "score_3": "20",
         "days_to_complete_3": "5",
-        "score_default": "15"
+        "score": "15"
     },
     {
         "queue_number": "33",
@@ -424,9 +456,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "34",
@@ -437,9 +470,10 @@
         "days_to_complete_1": "50",
         "score_2": "300",
         "days_to_complete_2": "60",
+        "days_to_complete": "60",
         "score_3": "250",
         "days_to_complete_3": "75",
-        "score_default": "200"
+        "score": "200"
     },
     {
         "queue_number": "35",
@@ -450,9 +484,10 @@
         "days_to_complete_1": "2",
         "score_2": "18",
         "days_to_complete_2": "3",
+        "days_to_complete": "3",
         "score_3": "15",
         "days_to_complete_3": "4",
-        "score_default": "12"
+        "score": "12"
     },
     {
         "queue_number": "36",
@@ -463,9 +498,10 @@
         "days_to_complete_1": "3",
         "score_2": "24",
         "days_to_complete_2": "4",
+        "days_to_complete": "4",
         "score_3": "20",
         "days_to_complete_3": "5",
-        "score_default": "15"
+        "score": "15"
     },
     {
         "queue_number": "37",
@@ -476,9 +512,10 @@
         "days_to_complete_1": "3",
         "score_2": "24",
         "days_to_complete_2": "4",
+        "days_to_complete": "4",
         "score_3": "20",
         "days_to_complete_3": "5",
-        "score_default": "15"
+        "score": "15"
     },
     {
         "queue_number": "38",
@@ -489,9 +526,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "39",
@@ -502,9 +540,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "40",
@@ -515,9 +554,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "41",
@@ -528,9 +568,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "42",
@@ -541,9 +582,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "43",
@@ -554,9 +596,10 @@
         "days_to_complete_1": "1",
         "score_2": "4",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "3",
         "days_to_complete_3": "3",
-        "score_default": "2"
+        "score": "2"
     },
     {
         "queue_number": "44",
@@ -567,9 +610,10 @@
         "days_to_complete_1": "1",
         "score_2": "12",
         "days_to_complete_2": "2",
+        "days_to_complete": "2",
         "score_3": "10",
         "days_to_complete_3": "3",
-        "score_default": "8"
+        "score": "8"
     },
     {
         "queue_number": "45",
@@ -580,9 +624,10 @@
         "days_to_complete_1": "15",
         "score_2": "120",
         "days_to_complete_2": "20",
+        "days_to_complete": "20",
         "score_3": "100",
         "days_to_complete_3": "25",
-        "score_default": "80"
+        "score": "80"
     },
     {
         "queue_number": "46",
@@ -593,9 +638,10 @@
         "days_to_complete_1": "2",
         "score_2": "18",
         "days_to_complete_2": "3",
+        "days_to_complete": "3",
         "score_3": "12",
         "days_to_complete_3": "5",
-        "score_default": "10"
+        "score": "10"
     },
     {
         "queue_number": "47",
@@ -606,9 +652,10 @@
         "days_to_complete_1": "12",
         "score_2": "90",
         "days_to_complete_2": "15",
+        "days_to_complete": "15",
         "score_3": "80",
         "days_to_complete_3": "18",
-        "score_default": "70"
+        "score": "70"
     },
     {
         "queue_number": "48",
@@ -619,9 +666,10 @@
         "days_to_complete_1": "5",
         "score_2": "36",
         "days_to_complete_2": "6",
+        "days_to_complete": "6",
         "score_3": "30",
         "days_to_complete_3": "8",
-        "score_default": "25"
+        "score": "25"
     },
     {
         "queue_number": "49",
@@ -632,9 +680,10 @@
         "days_to_complete_1": "12",
         "score_2": "90",
         "days_to_complete_2": "15",
+        "days_to_complete": "15",
         "score_3": "80",
         "days_to_complete_3": "18",
-        "score_default": "70"
+        "score": "70"
     },
     {
         "queue_number": "50",
@@ -645,9 +694,10 @@
         "days_to_complete_1": "35",
         "score_2": "240",
         "days_to_complete_2": "40",
+        "days_to_complete": "40",
         "score_3": "200",
         "days_to_complete_3": "50",
-        "score_default": "180"
+        "score": "180"
     },
     {
         "queue_number": "51",
@@ -658,9 +708,10 @@
         "days_to_complete_1": "4",
         "score_2": "36",
         "days_to_complete_2": "6",
+        "days_to_complete": "6",
         "score_3": "30",
         "days_to_complete_3": "8",
-        "score_default": "25"
+        "score": "25"
     },
     {
         "queue_number": "52",
@@ -671,9 +722,10 @@
         "days_to_complete_1": "11",
         "score_2": "90",
         "days_to_complete_2": "15",
+        "days_to_complete": "15",
         "score_3": "80",
         "days_to_complete_3": "18",
-        "score_default": "70"
+        "score": "70"
     },
     {
         "queue_number": "53",
@@ -684,9 +736,10 @@
         "days_to_complete_1": "20",
         "score_2": "150",
         "days_to_complete_2": "25",
+        "days_to_complete": "25",
         "score_3": "125",
         "days_to_complete_3": "30",
-        "score_default": "100"
+        "score": "100"
     },
     {
         "queue_number": "54",
@@ -697,9 +750,10 @@
         "days_to_complete_1": "40",
         "score_2": "300",
         "days_to_complete_2": "50",
+        "days_to_complete": "50",
         "score_3": "250",
         "days_to_complete_3": "60",
-        "score_default": "225"
+        "score": "225"
     },
     {
         "queue_number": "55",
@@ -710,8 +764,9 @@
         "days_to_complete_1": "80",
         "score_2": "600",
         "days_to_complete_2": "100",
+        "days_to_complete": "100",
         "score_3": "500",
         "days_to_complete_3": "120",
-        "score_default": "450"
+        "score": "450"
     }
 ]

@@ -30,6 +30,7 @@ module.exports = function (Sequelize, Types) {
       city: { type: Types.STRING },
       country: { type: Types.STRING },
       is_active: { type: Types.TINYINT, defaultValue: '1' },
+      score: { type: Types.INTEGER, defaultValue: 0}
       // password: {
       //   type: Types.VIRTUAL,
       //   set(password) {

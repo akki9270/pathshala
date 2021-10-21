@@ -1,7 +1,7 @@
 const express = require("express");
 const Router = require("express-promise-router");
 const router = new Router();
-const { CHECK_ATTENDENCE } = require('../controller/attendence.controller');
+const { CHECK_ATTENDENCE, GET_ATTENDANCE } = require('../controller/attendence.controller');
 
 
 /**
@@ -11,7 +11,7 @@ const { CHECK_ATTENDENCE } = require('../controller/attendence.controller');
  *  studentId: INTEGER // students's ID
  * }
  */
-router.post('/check_attendence', CHECK_ATTENDENCE);
-
+router.post('/check_attendance', CHECK_ATTENDENCE);
+router.get('/attendance', GET_ATTENDANCE);
 
 module.exports = router;

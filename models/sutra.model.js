@@ -6,13 +6,13 @@ module.exports = function (Sequelize, Types) {
         name_english: { type: Types.STRING, allowNull: false },
         gatha_count: { type: Types.INTEGER, allowNull: false },
         queue_number: { type: Types.INTEGER, allowNull: false },
-        score_1: { type: Types.INTEGER, allowNull: false },
-        score_2: { type: Types.INTEGER, allowNull: false },
-        score_3: { type: Types.INTEGER, allowNull: false },
-        score_default: { type: Types.INTEGER, allowNull: false},
-        days_to_complete_1: { type: Types.INTEGER, allowNull: false },
-        days_to_complete_2: { type: Types.INTEGER, allowNull: false },
-        days_to_complete_3: { type: Types.INTEGER, allowNull: false }
+        // score_1: { type: Types.INTEGER, allowNull: false },
+        // score_2: { type: Types.INTEGER, allowNull: false },
+        // score_3: { type: Types.INTEGER, allowNull: false },
+        score: { type: Types.INTEGER, allowNull: true, defaultValue: 0},
+        days_to_complete: { type: Types.INTEGER, allowNull: true, defaultValue: 0 },
+        // days_to_complete_2: { type: Types.INTEGER, allowNull: false },
+        // days_to_complete_3: { type: Types.INTEGER, allowNull: false }
 
     }, {
         timestamps: true,

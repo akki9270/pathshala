@@ -15,6 +15,27 @@ async function createUser(user) {
     }
 }
 
+async function getUserGatha(id) {
+    try {
+        const userGatha = await models.UserSutra.findAll({
+            where: {
+                user_id: id
+            },
+            include: [
+                { model: models.Sutra },
+                { model: models.User, as: 'Student' },
+                { model: models.User, as: 'Teacher' }
+            ],
+            order:[['id', 'DESC']],
+            limit: 1
+        });
+        return userGatha[0];
+    } catch (e) {
+        throw e
+    }
+}
+
 module.exports = {
-    createUser
+    createUser,
+    getUserGatha
 }
