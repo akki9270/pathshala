@@ -1,10 +1,9 @@
 
-const User = require('../models/user.model');
-const Sutra = require('../models/sutra.model');
-const models = require('../models');
+const User = require('./user.model');
+const Sutra = require('./sutra.model');
 module.exports = function (Sequelize, Types) {
     let UserSutra = Sequelize.define(
-        "UserSutra",
+        "UserSutraHistory",
         {
             id: { type: Types.INTEGER, autoIncrement: true, primaryKey: true },
             current_gatha_count: { type: Types.INTEGER },
@@ -14,18 +13,8 @@ module.exports = function (Sequelize, Types) {
         timestamps: true,
         paranoid: true,
         freezeTableName: true,
-        tableName: "user_sutra",
-        modelName: "UserSutra",
-        hooks: {
-            afterUpdate: async (Instance, option) => {
-                console.log( ' ***** UPDATE ', Instance, option); 
-                if (Instance && Instance.dataValues) {
-                    delete Instance.dataValues.id;
-                    Instance.dataValues.current_gatha_count = Instance._previousDataValues.current_gatha_count;
-                    await models.UserSutraHistory.create(Instance.dataValues);
-                }
-            }
-        }
+        tableName: "user_sutra_history",
+        modelName: "UserSutraHistory"
     });
     UserSutra.belongsTo(User(Sequelize, Types), {
         foreignKey: 'approved_by',

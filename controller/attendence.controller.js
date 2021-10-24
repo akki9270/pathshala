@@ -1,6 +1,7 @@
 const moment = require("moment");
-const { Op, fn, QueryTypes, col } = require("sequelize");
+const { Op, fn, QueryTypes, col, literal } = require("sequelize");
 const models = require("../models");
+const { POINTS } = require("../_helpers/constants");
 
 
 
@@ -32,7 +33,8 @@ exports.CHECK_ATTENDENCE = async function (req, res) {
         await models.Attendence.create({
             is_present: 1,
             user_id: studentId,
-            added_by: teacherId
+            added_by: teacherId,
+            score: literal(' score + ' + POINTS.ATTENDENCE_SCORE)
         });
     }
 
