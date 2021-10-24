@@ -32,7 +32,7 @@ exports.CHECK_ATTENDENCE = async function (req, res) {
         await models.Attendence.create({
             is_present: 1,
             user_id: studentId,
-            added_by: userId
+            added_by: teacherId
         });
     }
 
