@@ -31,12 +31,12 @@ exports.USER_NEXT_GATHA = async function(req, res, next) {
              await models.UserSutra.update(
                 {
                 current_gatha_count: literal('current_gatha_count + 1'),
+                approved_by: teacherId
                 },
                 {
                     where: {
                         user_id: studentId,
-                        sutra_id: Sutra.id,
-                        approved_by: teacherId
+                        sutra_id: Sutra.id
                     },
                     individualHooks: true
                 }
@@ -55,13 +55,13 @@ exports.USER_NEXT_GATHA = async function(req, res, next) {
             
             await models.UserSutra.update(
                 {
-                end_date: literal('NOW()')
+                end_date: literal('NOW()'),
+                approved_by: teacherId
                 },
                 {
                     where: {
                         user_id: studentId,
-                        sutra_id: Sutra.id,
-                        approved_by: teacherId
+                        sutra_id: Sutra.id
                     },
                     individualHooks: true
                 }
