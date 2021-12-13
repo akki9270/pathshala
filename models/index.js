@@ -94,7 +94,8 @@ async function init_sequelize() {
   });
   db.sequelize = sequelize;
   let connect = await sequelize.sync({ 
-    // logging: console.log, force: true
+    // logging: console.log, 
+    // force: true
   });
 
   console.log('connect ');

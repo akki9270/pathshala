@@ -1,3 +1,5 @@
+const SutraCategory = require('./sutra_category.model');
+
 module.exports = function (Sequelize, Types) {
     let Sutra = Sequelize.define(
         "Sutra", {
@@ -5,7 +7,7 @@ module.exports = function (Sequelize, Types) {
         name: { type: Types.STRING, allowNull: false },
         name_english: { type: Types.STRING, allowNull: false },
         gatha_count: { type: Types.INTEGER, allowNull: false },
-        queue_number: { type: Types.INTEGER, allowNull: false },
+        queue_number: { type: Types.INTEGER, allowNull: true },
         // score_1: { type: Types.INTEGER, allowNull: false },
         // score_2: { type: Types.INTEGER, allowNull: false },
         // score_3: { type: Types.INTEGER, allowNull: false },
@@ -21,6 +23,10 @@ module.exports = function (Sequelize, Types) {
         tableName: "sutra",
         modelName: "Sutra",
     });
-
+    Sutra.belongsTo(SutraCategory(Sequelize, Types), {
+        foreignKey: 'category_id',
+        targetKey: 'id',
+        // as: 'SutraCategory'
+    });
     return Sutra;
 }

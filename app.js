@@ -9,8 +9,11 @@ const authRoutes = require('./routes/auth.routes');
 const attendenceRoutes = require('./routes/attendence.routes');
 const userRoutes = require("./routes/users.routes");
 const sutraRoutes = require("./routes/sutra.route");
+const sutraCategoryRoutes = require('./routes/sutra-category.routes');
+
 const userService = require('./service/user.service');
 const sutraService = require('./service/sutra.service');
+const sutraCategoryService = require('./service/sutra-category.service');
 // node_xj = require("xls-to-json");
 const models = require('./models');
 const imageUrl = "http://hiteshvidhikar.com/pathshala/images/";
@@ -64,6 +67,7 @@ app.use("/api", authRoutes);
 app.use("/api", attendenceRoutes);
 app.use("/api", userRoutes);
 app.use("/api", sutraRoutes);
+app.use("/api", sutraCategoryRoutes);
 
 // convert xls to json
 // node_xj(
@@ -88,7 +92,7 @@ async function InsertData() {
         where: { role: 'Student' }
     });
     let sutraData = await models.Sutra.findAll({});
-
+    let sutraCategory = await models.SutraCategory.findAll({});
     if (studentData && !studentData.length) {
         const jsonData = require('./student.json');
         let allStudents = []
@@ -132,9 +136,14 @@ async function InsertData() {
             if (it.days_to_complete == "") {
                 it.days_to_complete = 0;
             }
+            it["category_id"] = 1;
         })
        let result = await sutraService.createSutra(sutraDataJson);
     //    console.log(' sutra Data', result);
+    }
+    if(sutraCategory && !sutraCategory.length) {
+        const jsonData = require('./category.json');
+        let result = await sutraCategoryService.createCategory(jsonData);
     }
 }
 exports.startServer = () => {

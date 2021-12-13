@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name_english": "Sutra",
+        "name": "સૂત્ર"
+    },
+    {
+        "id": 2,
+        "name_english": "Stavan",
+        "name": "સ્તવન"
+    },
+    {
+        "id": 3,
+        "name_english": "Thoy",
+        "name": "થોય"
+    },
+    {
+        "id": 4,
+        "name_english": "Sajjay",
+        "name": "સજજાય"
+    },
+    {
+        "id": 5,
+        "name_english": "chaityavandan",
+        "name": "ચૈત્યવંદન"
+    },
+    {
+        "id": 6,
+        "name_english": "Vidhi",
+        "name": "વિધિ"
+    },
+    {
+        "id": 7,
+        "name_english": "Pachhkhan",
+        "name": "પચ્છખાણ"
+    }
+]

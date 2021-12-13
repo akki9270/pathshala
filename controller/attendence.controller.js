@@ -58,7 +58,7 @@ exports.GET_ATTENDANCE = async function (req, res, next) {
                 user_id: id,
                 attendence_date: {
                     [Op.gte]: moment().subtract(8, 'days').startOf('day').toDate(),
-                    [Op.lt]: moment().startOf('day').toDate()
+                    [Op.lt]: moment().endOf('day').toDate()
                 },
                 deletedAt: {
                     [Op.eq]: null

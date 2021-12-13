@@ -22,7 +22,8 @@ async function getUserGatha(id) {
                 user_id: id
             },
             include: [
-                { model: models.Sutra },
+                { model: models.Sutra,
+                include: [ {model: models.SutraCategory} ] },
                 { model: models.User, as: 'Student' },
                 { model: models.User, as: 'Teacher' }
             ],

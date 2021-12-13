@@ -1,5 +1,5 @@
 exports.POINTS = {
-    ATTENDENCE_SCORE: 6,
+    ATTENDENCE_SCORE: 4,
     GATHA_SCORE: 6,
     SUTRA_SCORE: 6
 }
