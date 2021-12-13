@@ -34,7 +34,11 @@ exports.CHECK_ATTENDENCE = async function (req, res) {
             is_present: 1,
             user_id: studentId,
             added_by: teacherId,
+        });
+        await models.User.update({
             score: literal(' score + ' + POINTS.ATTENDENCE_SCORE)
+        }, {
+            where: { id: studentId }
         });
     }
 
