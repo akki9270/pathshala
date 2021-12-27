@@ -36,7 +36,7 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
             motherName, address, dob, gender, contact1,
             contact2, email, selectedSutra,
             currentGathaCount, house_number, street, area_code,
-            city, teacherId } = req.body;
+            city, teacherId, isNew } = req.body;
 
         let mobile = [contact1, contact2];
         let insertedUser;
@@ -49,17 +49,26 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
             mobile, street, house_number, area_code,
             city, country: 'India', is_active: 1
         }
-        if (user_id > 0) {
+        if (isNew) {
+            if (user_id && user_id > 0) {
+                let existingUser = await models.User.findAll({ where: { id: user_id }});
+                if (existingUser && existingUser.length) {
+                    return res.status(400).send({data: 'User Already exists with id ' + user_id });
+                }
+                userId = user_id;
+                user['id'] = user_id;
+                insertedUser = await models.User.create(user);
+            } else {
+                // create new user record
+                insertedUser = await models.User.create(user);
+                // console.log(' insertedUser ', insertedUser);
+                userId = insertedUser.id
+            }
+
+        } else {
             // update user record
             userId = user_id;
-            await models.User.update(user, {
-                where: { id: user_id }
-            })
-        } else {
-            // create new user record
-            insertedUser = await models.User.create(user);
-            console.log(' insertedUser ', insertedUser);
-            userId = insertedUser.id
+            await models.User.update(user, { where: { id: user_id } });
         }
         // user Sutra After creating / updating User
         const result = await models.UserSutra.create({
@@ -69,7 +78,7 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
             user_id: userId
         });
 
-        return res.status(200).send({ data: userId })
+        return res.status(200).send({ data: {id: userId} })
     } catch (e) {
         console.log('e ', e);
         return res.status(500).send(e)

@@ -9,7 +9,8 @@ module.exports = function (Sequelize, Types) {
         type: Types.INTEGER,
         // defaultValue: Types.UUIDV4,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
       },
       first_name: { type: Types.STRING },
       middle_name: { type: Types.STRING },
