@@ -70,13 +70,25 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
             userId = user_id;
             await models.User.update(user, { where: { id: user_id } });
         }
-        // user Sutra After creating / updating User
-        const result = await models.UserSutra.create({
-            current_gatha_count: currentGathaCount,
-            sutra_id: selectedSutra.id,
-            approved_by: teacherId,
-            user_id: userId
+        const ExistingUserSutraData = await models.UserSutra.findAll({
+            where: {
+                current_gatha_count: currentGathaCount,
+                sutra_id: selectedSutra.id,
+                // approved_by: teacherId,
+                user_id: userId
+            },
+            order: [['id', 'DESC']],
+            limit: 1
         });
+        if (!ExistingUserSutraData || !ExistingUserSutraData.length) {    
+            // user Sutra After creating / updating User
+            const result = await models.UserSutra.create({
+                current_gatha_count: currentGathaCount,
+                sutra_id: selectedSutra.id,
+                approved_by: teacherId,
+                user_id: userId
+            });
+        }
 
         return res.status(200).send({ data: {id: userId} })
     } catch (e) {
