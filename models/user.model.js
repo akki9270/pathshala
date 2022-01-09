@@ -15,6 +15,7 @@ module.exports = function (Sequelize, Types) {
       first_name: { type: Types.STRING },
       middle_name: { type: Types.STRING },
       last_name: { type: Types.STRING },
+      mother_name: { type: Types.STRING },
       profile_image: { type: Types.STRING },
       display_name: { type: Types.STRING },
       date_of_birth: { type: Types.DATE },

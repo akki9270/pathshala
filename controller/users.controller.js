@@ -24,7 +24,7 @@ exports.GET_USER_DATA = async (req, res, next) => {
     //     result[0]['dataValues']['presentDays'] = presentDays;
     // }
 
-    console.log(' userGatha ', userGatha);
+    // console.log(' userGatha ', userGatha);
     return res.status(200).send({ data: result, gatha: userGatha, presentDays });
 }
 
