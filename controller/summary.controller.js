@@ -36,9 +36,9 @@ exports.GET_ATTENDANCE_SUMMARY = async function (req, res) {
             }
         });
         
-       return res.status(200).send({totalAttandance});
+       return res.status(200).send(totalAttandance);
     } catch (e) {
-        return res.status(500).send(e);
+        return res.status(500).send(e.message);
     }
 }
 
@@ -62,7 +62,7 @@ exports.GET_SUTRA_SUMMARY = async function (req,res) {
         const result = await models.sequelize.query(query, { raw: true, type: QueryTypes.SELECT });
         return res.status(200).send(result);
     } catch (e) {
-        return res.status(500).send(e);
+        return res.status(500).send(e.meesage);
     }
 }
 
