@@ -5,14 +5,14 @@ const { SQL: { database } } = require("../config")
 
 exports.GET_ATTENDANCE_SUMMARY = async function (req, res) {
     try {
-        const { id } = req.query;
+        const { id, year } = req.query;
         const totalAttandance = await models.sequelize.query(
             `
             SELECT 
             count(distinct DATE_FORMAT(attendence_date,'%d')) as days,
             DATE_FORMAT(attendence_date, '%m') as month,
             DATE_FORMAT(attendence_date, '%Y') as years
-            from ${database}.attendence 
+            from ${database}.attendence WHERE DATE_FORMAT(attendence_date, '%Y') = '${year}'
             GROUP BY DATE_FORMAT(attendence_date, '%Y'), DATE_FORMAT(attendence_date, '%m')
             `, { raw: true, type: QueryTypes.SELECT });
     
@@ -23,7 +23,7 @@ exports.GET_ATTENDANCE_SUMMARY = async function (req, res) {
                 DATE_FORMAT(attendence_date, '%m') as month,
                 DATE_FORMAT(attendence_date, '%Y') as years
                 from ${database}.attendence 
-                WHERE user_id = ${id}
+                WHERE user_id = ${id} AND DATE_FORMAT(attendence_date, '%Y') = '${year}' 
                 GROUP BY DATE_FORMAT(attendence_date, '%Y'), DATE_FORMAT(attendence_date, '%m')
                 `, { raw: true, type: QueryTypes.SELECT });    
     
@@ -44,7 +44,7 @@ exports.GET_ATTENDANCE_SUMMARY = async function (req, res) {
 
 exports.GET_SUTRA_SUMMARY = async function (req,res) {
     try {
-        const { id } = req.query;
+        const { id, year } = req.query;
         const query = `SELECT 
         su.name as sutraName,
         su.gatha_count as sutraGatha,
@@ -57,7 +57,7 @@ exports.GET_SUTRA_SUMMARY = async function (req,res) {
         ${database}.user_sutra us
         LEFT JOIN ${database}.sutra su ON su.id = us.sutra_id
     WHERE
-        user_id = ${id}`;
+        user_id = ${id} AND DATE_FORMAT(us.createdAt,'%Y') = '${year}'`;
 
         const result = await models.sequelize.query(query, { raw: true, type: QueryTypes.SELECT });
         return res.status(200).send(result);
