@@ -46,6 +46,7 @@ exports.GET_SUTRA_SUMMARY = async function (req,res) {
     try {
         const { id, year } = req.query;
         const query = `SELECT 
+        us.id AS id, 
         su.name as sutraName,
         su.gatha_count as sutraGatha,
         datediff(us.end_date, us.start_date) as days,
@@ -59,10 +60,11 @@ exports.GET_SUTRA_SUMMARY = async function (req,res) {
     WHERE
         user_id = ${id} AND DATE_FORMAT(us.createdAt,'%Y') = '${year}'`;
 
-        const result = await models.sequelize.query(query, { raw: true, type: QueryTypes.SELECT });
+        let result = await models.sequelize.query(query, { raw: true, type: QueryTypes.SELECT });
+        result = result.sort((a,b) => b.id - a.id);
         return res.status(200).send(result);
     } catch (e) {
-        return res.status(500).send(e.meesage);
+        return res.status(500).send(e.message);
     }
 }
 
@@ -76,6 +78,15 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
         ${database}.attendence where date_format(attendence_date,'%Y') = '${year}'
         `;
 
+        const attendanceQuery = `
+        SELECT DISTINCT
+            DATE_FORMAT(attendence_date,'%Y-%m-%d') as dates
+        FROM
+            PATHSHALA.attendence
+        WHERE
+            user_id = ${id} AND 
+        DATE_FORMAT(attendence_date, '%Y') = '${year}'
+        `
         const summaryQuery = `
         SELECT 
         DATE_FORMAT(us.createdAt, '%Y-%m-%d') as dates,
@@ -91,14 +102,21 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
                 AND DATE_FORMAT(us.createdAt, '%Y') = '${year}'
         `;
         const dateData = await models.sequelize.query(query, { raw: true, type: QueryTypes.SELECT });
+        const attendenceData = await models.sequelize.query(attendanceQuery, { raw: true, type: QueryTypes.SELECT });
         const summaryData = await models.sequelize.query(summaryQuery, { raw: true, type: QueryTypes.SELECT });
         let result = [];
-        result = summaryData;
-        result.forEach(i => i['isPresent'] = true);
+        result = dateData;
+        result.forEach(i => {
+            let findIndex = attendenceData.findIndex(it => it.dates == i.dates);
+            i['isPresent'] = findIndex > -1;
+        });
         dateData.forEach(i => {
-            let found = result.findIndex(ri => ri.dates == i.dates);
-            if(found == -1) {
-                result.push({ dates: i.dates, isPresent: false });
+            let found = summaryData.filter(ri => ri.dates == i.dates);
+            let idx = result.findIndex(it => it['dates'] == i['dates']);
+            if(found && found.length) {
+                result.splice(idx, 1);
+                found.forEach(i => i['isPresent'] = true);
+                result.push(...found);
             }
         });
         result = result.sort((a,b) => new Date(b.dates) - new Date(a.dates));
