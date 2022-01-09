@@ -43,7 +43,7 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
         let userId;
        mobile = mobile.filter(i => i).join(',');
         let user = {
-            first_name: firstName, middle_name: middleName, last_name: lastName,
+            first_name: firstName, middle_name: middleName, last_name: lastName, mother_name: motherName,
             display_name: firstName + ' ' + lastName,
             date_of_birth: dob, gender, email, role: 'Student',
             mobile, street, house_number, area_code,
