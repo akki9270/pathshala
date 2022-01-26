@@ -25,6 +25,7 @@ module.exports = function (Sequelize, Types) {
                     Instance.dataValues.status = GATHA_STATUS.IN_PROGRESS;
                     Instance.dataValues.current_gatha_count = 
                     Instance.dataValues.current_gatha_count == 1 ? 1 : (Instance._previousDataValues.current_gatha_count + 1);
+                    Instance.dataValues.createdAt = new Date().toISOString();
                     models.UserSutraHistory.create(Instance.dataValues, { transaction: option.transaction});
                 }
             },
