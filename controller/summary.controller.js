@@ -58,7 +58,7 @@ exports.GET_SUTRA_SUMMARY = async function (req,res) {
         ${database}.user_sutra us
         LEFT JOIN ${database}.sutra su ON su.id = us.sutra_id
     WHERE
-        user_id = ${id} AND DATE_FORMAT(us.createdAt,'%Y') = '${year}'`;
+        user_id = ${id} AND ( DATE_FORMAT(us.createdAt,'%Y') = '${year}' OR us.start_date = us.end_date)`;
 
         let result = await models.sequelize.query(query, { raw: true, type: QueryTypes.SELECT });
         result = result.sort((a,b) => b.id - a.id);
