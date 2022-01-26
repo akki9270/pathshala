@@ -32,8 +32,10 @@ exports.USER_NEXT_GATHA = async function(req, res, next) {
         let latestSutraHistory = await models.UserSutraHistory.findOne(
             { where: { current_gatha_count, user_id: studentId, sutra_id: Sutra.id }, order: [['id', 'DESC']], limit: 1 }
         );
-        await latestSutraHistory.update(
-            { status: DONE, approved_by: teacherId }, { transaction: t });
+        if (latestSutraHistory) {
+            await latestSutraHistory.update(
+                { status: DONE, approved_by: teacherId }, { transaction: t });
+        }
         if (current_gatha_count < Sutra.gatha_count) {
             // increament Gatha count by 1
             await uSutra.update({ current_gatha_count: literal('current_gatha_count + 1'), approved_by: teacherId }, { transaction: t});
@@ -99,6 +101,7 @@ exports.UPDATE_USER_SUTRA = async (req, res, next) => {
     return res.status(200).send({data: 'success'})
     } catch (e) {
         t.rollback();
+        TIMELOGGER.error({ message: `USER_NEXT_GATHA ${JSON.stringify(e)}` })
         return res.status(500).send(e);
     }
 }

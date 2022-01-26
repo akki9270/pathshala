@@ -11,7 +11,7 @@ exports.CHECK_ATTENDENCE = async function (req, res) {
     let student = await models.User.findOne({ where: { id: studentId, role: 'Student' }, raw: true });
     let teacher = await models.User.findOne({ where: { id: teacherId, role: 'Teacher' }, raw: true });
     let latestUserSutra = await models.UserSutraHistory.findOne({
-        where : { user_id: studentId, status: GATHA_STATUS.IN_PROGRESS },
+        where : { user_id: studentId },
         order:[['id', 'desc']],
         limit: 1,
         raw: true
