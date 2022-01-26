@@ -8,7 +8,8 @@ module.exports = function (Sequelize, Types) {
             id: { type: Types.INTEGER, autoIncrement: true, primaryKey: true },
             current_gatha_count: { type: Types.INTEGER },
             start_date: { type: Types.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-            end_date: { type: Types.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') }
+            end_date: { type: Types.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
+            status: Types.ENUM('inProgress', 'done')
         }, {
         timestamps: true,
         paranoid: true,

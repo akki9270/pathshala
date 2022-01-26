@@ -92,14 +92,15 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
         DATE_FORMAT(us.createdAt, '%Y-%m-%d') as dates,
             su.name,
             us.current_gatha_count,
+            us.status as status,
             concat(teacher.first_name, ' ',teacher.last_name) as teacher
         FROM
-            PATHSHALA.user_sutra us 
+            PATHSHALA.user_sutra_history us 
             LEFT JOIN PATHSHALA.sutra su ON su.id = us.sutra_id
             LEFT JOIN PATHSHALA.user teacher ON teacher.id = us.approved_by
         WHERE
             user_id = ${id}
-                AND DATE_FORMAT(us.createdAt, '%Y') = '${year}'
+                AND DATE_FORMAT(us.createdAt, '%Y') = '${year}' order by us.id desc
         `;
         const dateData = await models.sequelize.query(query, { raw: true, type: QueryTypes.SELECT });
         const attendenceData = await models.sequelize.query(attendanceQuery, { raw: true, type: QueryTypes.SELECT });

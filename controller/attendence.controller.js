@@ -1,20 +1,26 @@
 const moment = require("moment");
 const { Op, fn, QueryTypes, col, literal } = require("sequelize");
 const models = require("../models");
-const { POINTS } = require("../_helpers/constants");
+const { POINTS, GATHA_STATUS } = require("../_helpers/constants");
 
 
 
 exports.CHECK_ATTENDENCE = async function (req, res) {
     const { teacherId, studentId } = req.body;
     // console.log(' payload  userId ', userId, ' StudentId ', studentId);
-    let student = await models.User.findAll({ where: { id: studentId, role: 'Student' }, raw: true });
-    let teacher = await models.User.findAll({ where: { id: teacherId, role: 'Teacher' }, raw: true });
-    if (!student.length || !teacher.length) {
+    let student = await models.User.findOne({ where: { id: studentId, role: 'Student' }, raw: true });
+    let teacher = await models.User.findOne({ where: { id: teacherId, role: 'Teacher' }, raw: true });
+    let latestUserSutra = await models.UserSutraHistory.findOne({
+        where : { user_id: studentId, status: GATHA_STATUS.IN_PROGRESS },
+        order:[['id', 'desc']],
+        limit: 1,
+        raw: true
+    });
+    if (!student || !teacher) {
         return res.status(404).send('User not found');
     }
-    student = student[0];
-    teacher = teacher[0];
+    // student = student[0];
+    // teacher = teacher[0];
 
     let d = new Date();
     let dateString = `${d.getFullYear()}-${(d.getMonth() + 1)}-${d.getDate()}`;
@@ -40,6 +46,10 @@ exports.CHECK_ATTENDENCE = async function (req, res) {
         }, {
             where: { id: studentId }
         });
+        if (latestUserSutra) {
+            delete latestUserSutra.id;
+            await models.UserSutraHistory.create(latestUserSutra);
+        }
     }
 
     return res.status(200).send(student);

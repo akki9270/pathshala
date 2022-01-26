@@ -2,6 +2,7 @@
 const User = require('../models/user.model');
 const Sutra = require('../models/sutra.model');
 const models = require('../models');
+const { GATHA_STATUS } = require('../_helpers/constants');
 module.exports = function (Sequelize, Types) {
     let UserSutra = Sequelize.define(
         "UserSutra",
@@ -17,12 +18,23 @@ module.exports = function (Sequelize, Types) {
         tableName: "user_sutra",
         modelName: "UserSutra",
         hooks: {
-            afterUpdate: async (Instance, option) => {
-                console.log( ' ***** UPDATE ', Instance, option); 
+            afterUpdate: (Instance, option) => {
+                // console.log( ' ***** UPDATE ', Instance, option); 
+                if (Instance && Instance.dataValues && Instance.dataValues.current_gatha_count.val) {
+                    delete Instance.dataValues.id;
+                    Instance.dataValues.status = GATHA_STATUS.IN_PROGRESS;
+                    Instance.dataValues.current_gatha_count = 
+                    Instance.dataValues.current_gatha_count == 1 ? 1 : (Instance._previousDataValues.current_gatha_count + 1);
+                    models.UserSutraHistory.create(Instance.dataValues, { transaction: option.transaction});
+                }
+            },
+            afterCreate: async (Instance, option) => {
+                // console.log( ' ***** CREATE ', Instance, option); 
                 if (Instance && Instance.dataValues) {
                     delete Instance.dataValues.id;
-                    Instance.dataValues.current_gatha_count = Instance._previousDataValues.current_gatha_count;
-                    await models.UserSutraHistory.create(Instance.dataValues);
+                    // Instance.dataValues.current_gatha_count = Instance.dataValues.current_gatha_count;
+                    Instance.dataValues.status = GATHA_STATUS.IN_PROGRESS;
+                    await models.UserSutraHistory.create(Instance.dataValues, { transaction: option.transaction });
                 }
             }
         }
