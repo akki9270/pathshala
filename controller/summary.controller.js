@@ -106,6 +106,7 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
         const attendenceData = await models.sequelize.query(attendanceQuery, { raw: true, type: QueryTypes.SELECT });
         const summaryData = await models.sequelize.query(summaryQuery, { raw: true, type: QueryTypes.SELECT });
         let result = [];
+        let updatedResults = [];
         result = dateData;
         result.forEach(i => {
             let findIndex = attendenceData.findIndex(it => it.dates == i.dates);
@@ -115,13 +116,16 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
             let found = summaryData.filter(ri => ri.dates == i.dates);
             let idx = result.findIndex(it => it['dates'] == i['dates']);
             if(found && found.length) {
-                result.splice(idx, 1);
+                // result.splice(idx, 1);
                 found.forEach(i => i['isPresent'] = true);
-                result.push(...found);
+                // result.push(...found);
+                updatedResults.push(...found);
+            } else {
+                updatedResults.push(result[idx])
             }
         });
-        result = result.sort((a,b) => new Date(b.dates) - new Date(a.dates));
-        return res.status(200).send(result);
+        updatedResults = updatedResults.sort((a,b) => new Date(b.dates) - new Date(a.dates));
+        return res.status(200).send(updatedResults);
     } catch (e) {
         return res.status(500).send(e.message);
     }
