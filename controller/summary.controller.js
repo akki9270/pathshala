@@ -90,7 +90,8 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
         `
         const summaryQuery = `
         SELECT 
-        DATE_FORMAT(us.updatedAt, '%Y-%m-%d') as dates,
+        DATE_FORMAT(us.createdAt, '%Y-%m-%d') as dates,
+        date_format(us.updatedAt, '%Y-%m-%d') as displayDate,
             su.name,
             us.current_gatha_count,
             us.status as status,
