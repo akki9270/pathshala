@@ -80,9 +80,10 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
 
         const attendanceQuery = `
         SELECT DISTINCT
-            DATE_FORMAT(attendence_date,'%Y-%m-%d') as dates
+            DATE_FORMAT(attendence_date,'%Y-%m-%d') as dates,
+            CONCAT(u.first_name, ' ' ,u.last_name) as attendenceBy
         FROM
-            PATHSHALA.attendence
+            ${database}.attendence a LEFT JOIN PATHSHALA.user u ON a.added_by = u.id
         WHERE
             user_id = ${id} AND 
         DATE_FORMAT(attendence_date, '%Y') = '${year}'
@@ -95,9 +96,9 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
             us.status as status,
             concat(teacher.first_name, ' ',teacher.last_name) as teacher
         FROM
-            PATHSHALA.user_sutra_history us 
-            LEFT JOIN PATHSHALA.sutra su ON su.id = us.sutra_id
-            LEFT JOIN PATHSHALA.user teacher ON teacher.id = us.approved_by
+            ${database}.user_sutra_history us 
+            LEFT JOIN ${database}.sutra su ON su.id = us.sutra_id
+            LEFT JOIN ${database}.user teacher ON teacher.id = us.approved_by
         WHERE
             user_id = ${id}
                 AND DATE_FORMAT(us.createdAt, '%Y') = '${year}' order by us.id desc
@@ -111,6 +112,9 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
         result.forEach(i => {
             let findIndex = attendenceData.findIndex(it => it.dates == i.dates);
             i['isPresent'] = findIndex > -1;
+            if (findIndex > -1) {
+                i['attendenceBy'] = attendenceData[findIndex].attendenceBy
+            }
         });
         dateData.forEach(i => {
             let found = summaryData.filter(ri => ri.dates == i.dates);
@@ -119,7 +123,11 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
                 // result.splice(idx, 1);
                 found.forEach(i => i['isPresent'] = true);
                 // result.push(...found);
-                updatedResults.push(...found);
+                let data = {
+                    ...result[idx],
+                    ...found[0]
+                }
+                updatedResults.push(data);
             } else {
                 updatedResults.push(result[idx])
             }
