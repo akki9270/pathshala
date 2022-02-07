@@ -1,7 +1,7 @@
 const moment = require("moment");
 const { Op, fn, QueryTypes, col, literal } = require("sequelize");
 const models = require("../models");
-const { SQL: { database } } = require("../config")
+const { SQL: { database } } = require("../config");
 
 exports.GET_ATTENDANCE_SUMMARY = async function (req, res) {
     try {
@@ -83,7 +83,7 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
             DATE_FORMAT(attendence_date,'%Y-%m-%d') as dates,
             CONCAT(u.first_name, ' ' ,u.last_name) as attendenceBy
         FROM
-            ${database}.attendence a LEFT JOIN PATHSHALA.user u ON a.added_by = u.id
+            ${database}.attendence a LEFT JOIN ${database}.user u ON a.added_by = u.id
         WHERE
             user_id = ${id} AND 
         DATE_FORMAT(attendence_date, '%Y') = '${year}'
@@ -93,6 +93,7 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
         DATE_FORMAT(us.createdAt, '%Y-%m-%d') as dates,
         date_format(us.updatedAt, '%Y-%m-%d') as displayDate,
             su.name,
+            us.id,
             us.current_gatha_count,
             us.status as status,
             concat(teacher.first_name, ' ',teacher.last_name) as teacher
@@ -118,22 +119,32 @@ exports.GET_USER_SUTRA_HISTORY = async function(req, res) {
             }
         });
         dateData.forEach(i => {
-            let found = summaryData.filter(ri => ri.dates == i.dates);
+            let found = summaryData.filter(ri => ri.displayDate == i.dates);
             let idx = result.findIndex(it => it['dates'] == i['dates']);
             if(found && found.length) {
                 // result.splice(idx, 1);
-                found.forEach(i => i['isPresent'] = true);
+                found.forEach(i => { 
+                    i['isPresent'] = true
+                    let data = {
+                        ...result[idx],
+                        // ...found[0],
+                        ...i
+                    }
+                    updatedResults.push(data);
+                });
                 // result.push(...found);
-                let data = {
-                    ...result[idx],
-                    ...found[0]
-                }
-                updatedResults.push(data);
             } else {
                 updatedResults.push(result[idx])
             }
         });
-        updatedResults = updatedResults.sort((a,b) => new Date(b.dates) - new Date(a.dates));
+        // sort by date desc
+        updatedResults = updatedResults.sort((a,b) => {
+            let adate = new Date(b.displayDate);
+            let bdate = new Date(a.displayDate);
+            return bdate - adate;
+        }).reverse();
+        // sort by id on same dates 
+        updatedResults = updatedResults.sort( (a,b) => b.id - a.id);
         return res.status(200).send(updatedResults);
     } catch (e) {
         return res.status(500).send(e.message);

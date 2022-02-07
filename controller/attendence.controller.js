@@ -1,7 +1,7 @@
 const moment = require("moment");
 const { Op, fn, QueryTypes, col, literal } = require("sequelize");
 const models = require("../models");
-const { POINTS, GATHA_STATUS } = require("../_helpers/constants");
+const { POINTS, GATHA_STATUS: { IN_PROGRESS } } = require("../_helpers/constants");
 
 
 
@@ -13,8 +13,7 @@ exports.CHECK_ATTENDENCE = async function (req, res) {
     let latestUserSutra = await models.UserSutraHistory.findOne({
         where : { user_id: studentId },
         order:[['id', 'desc']],
-        limit: 1,
-        raw: true
+        limit: 1
     });
     if (!student || !teacher) {
         return res.status(404).send('User not found');
@@ -46,13 +45,15 @@ exports.CHECK_ATTENDENCE = async function (req, res) {
         }, {
             where: { id: studentId }
         });
-        if (latestUserSutra) {
+        if (latestUserSutra && latestUserSutra.status == IN_PROGRESS) {
             delete latestUserSutra.id;
             await models.UserSutraHistory.create(latestUserSutra);
         }
+
+        student.score += POINTS.ATTENDENCE_SCORE; 
     }
 
-    return res.status(200).send(student);
+    return res.status(200).send({data: student});
 }
 
 exports.GET_ATTENDANCE = async function (req, res, next) {

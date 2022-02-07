@@ -15,6 +15,20 @@ async function createSutra(sutra) {
     }
 }
 
+async function getSutraById(id) {
+    try {
+       let result = await models.Sutra.findOne({
+            where: {
+                id: id
+            }
+        });
+        return result;
+    } catch (e) {
+        throw e;
+    }
+}
+
 module.exports = {
-    createSutra
+    createSutra,
+    getSutraById
 }

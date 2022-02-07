@@ -2,30 +2,40 @@ const { Op, fn, col } = require('sequelize');
 const models = require("../models");
 const { getUserGatha } = require('../service/user.service');
 const moment = require("moment");
+const { GATHA_STATUS: { IN_PROGRESS, TERMINATED }, USER_ROLES: { TEACHER, STUDENT } } = require('../_helpers/constants');
 
 exports.GET_USER_DATA = async (req, res, next) => {
     const { id } = req.query
-    const result = await models.User.findAll({
-        where: { id: id }
-    });
-    const userGatha = await getUserGatha(id);
-    const presentDays = await models.Attendence.count({
-        distinct: true,
-        col: 'id',
-        where: {
-            user_id: id,
-            attendence_date: {
-                [Op.gte]: moment().startOf('year').startOf('day').toDate()
+    try {      
+        let result = await models.User.findAll({
+            where: { id: id }
+        });
+        let userGatha = {};
+        let presentDays = {};
+        if (result && result.length) {
+            if (result[0].role == STUDENT) {
+                 userGatha = await getUserGatha(id);
+                 presentDays = await models.Attendence.count({
+                    distinct: true,
+                    col: 'id',
+                    where: {
+                        user_id: id,
+                        attendence_date: {
+                            [Op.gte]: moment().startOf('year').startOf('day').toDate()
+                        }
+                    }
+                });
             }
         }
-    });
-
-    // if(result && result.length) {
-    //     result[0]['dataValues']['presentDays'] = presentDays;
-    // }
-
-    // console.log(' userGatha ', userGatha);
-    return res.status(200).send({ data: result, gatha: userGatha, presentDays });
+        // if(result && result.length) {
+        //     result[0]['dataValues']['presentDays'] = presentDays;
+        // }
+    
+        // console.log(' userGatha ', userGatha);
+        return res.status(200).send({ data: result, gatha: userGatha, presentDays });
+    } catch (e) {
+        return res.status(500).send(e);
+    }
 }
 
 exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
@@ -80,6 +90,14 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
             order: [['id', 'DESC']],
             limit: 1
         });
+        let existingInprogressGatha = await models.UserSutraHistory.findOne({
+            where: { user_id: userId, status: IN_PROGRESS },
+            order: [['id', 'DESC']],
+            limit: 1
+        });
+        if(existingInprogressGatha) {
+            await existingInprogressGatha.update({ status: TERMINATED });
+        }
         if (!ExistingUserSutraData || !ExistingUserSutraData.length) {    
             // user Sutra After creating / updating User
             const result = await models.UserSutra.create({

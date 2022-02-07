@@ -1,6 +1,8 @@
 
+const { ne, eq } = require('sequelize/lib/operators');
+const { literal, col } = require('sequelize');
 const models = require('../models');
-
+const { GATHA_STATUS: { IN_PROGRESS } } = require('../_helpers/constants');
 async function createUser(user) {
     try {
         let result = [];
@@ -17,17 +19,30 @@ async function createUser(user) {
 
 async function getUserGatha(id) {
     try {
-        const userGatha = await models.UserSutra.findAll({
+        const inProgressSutra = await models.UserSutraHistory.findOne({
             where: {
                 user_id: id
             },
+            order: [['id', 'DESC']],
+            limit: 1
+        });
+        if (inProgressSutra && inProgressSutra.dataValues.status != IN_PROGRESS ) {
+            return null;
+        }
+        const userGatha = await models.UserSutra.findAll({
+            where: {
+                user_id: id,
+                start_date: { [eq]: col('end_date') }
+            },
             include: [
-                { model: models.Sutra,
-                include: [ {model: models.SutraCategory} ] },
+                {
+                    model: models.Sutra,
+                    include: [{ model: models.SutraCategory }]
+                },
                 { model: models.User, as: 'Student' },
                 { model: models.User, as: 'Teacher' }
             ],
-            order:[['id', 'DESC']],
+            order: [['id', 'DESC']],
             limit: 1
         });
         return userGatha[0];

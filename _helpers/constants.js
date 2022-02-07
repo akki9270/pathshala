@@ -6,5 +6,12 @@ exports.POINTS = {
 
 exports.GATHA_STATUS = {
     IN_PROGRESS: "inProgress",
-    DONE: "done"
+    DONE: "done",
+    TERMINATED :"terminated"
+}
+
+exports.USER_ROLES = {
+    STUDENT: "Student",
+    TEACHER: "Teacher",
+    ADMIN: "Admin"
 }
