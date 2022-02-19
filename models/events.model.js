@@ -2,7 +2,7 @@ const User = require('./user.model');
 
 module.exports = function (Sequelize, Types) {
     let Events = Sequelize.define(
-        "events",
+        "Events",
         {
             id: { type: Types.INTEGER, autoIncrement: true, primaryKey: true },
             event_date: { type: Types.DATE, allowNull: false },

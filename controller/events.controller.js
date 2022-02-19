@@ -2,24 +2,34 @@ const { Op, literal, where, QueryTypes } = require('sequelize');
 const { TIMELOGGER } = require('../winston');
 const moment = require("moment");
 const eventsService = require('../service/events.service');
-
+const models = require("../models");
 
 exports.CREATE_EVENT = async (req, res, next) => {
     try {
-        const { event_date, event_name, description, banner_url, points } = req.body;
-        if(!eventDate || moment().isAfter(eventDate)) {
+        const {id, event_date, event_name, description, banner_url, points } = req.body;
+        if(!event_date || moment().isAfter(event_date)) {
             return res.status(400).send({message: 'Event Date should be greater than today'});
         }
-        let result = await models.Events.create({
-            event_date,
-            description,
-            event_name,
-            banner_url,
-            points,
-            is_active: 1
-        });
-        result = await eventsService.getEventById(result.insertId);
-        return res.status(200).send({data: result});
+        if(id) {
+            let event = await eventsService.getEventById(id);
+
+            let update = await event.update({
+                ...req.body
+            }, { where: { id }});
+            let updatedEvent = await eventsService.getEventById(id);
+            return res.status(200).send(updatedEvent);
+        } else {
+            let result = await models.Events.create({
+                event_date,
+                description,
+                event_name,
+                banner_url,
+                points,
+                is_active: 1
+            });
+            result = await eventsService.getEventById(result.insertId);
+            return res.status(200).send({data: result});
+        }
     } catch (e) {
         TIMELOGGER.error({ method: 'CREATE_EVENT', message: e.message || 'Something went wrong'});
         return res.status(500).send('somrthing went wrong');
@@ -68,7 +78,7 @@ exports.GET_ALL_EVENT = async (req, res, next) => {
 
 exports.GET_EVENT_BY_ID = async (req, res, next) => {
     try {
-        const { id } = req.param;
+        const id = req.params.id;
         let data = await eventsService.getEventById(id);
         return res.status(200).send({ data });
     } catch (e) {

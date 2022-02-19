@@ -11,6 +11,7 @@ const userRoutes = require("./routes/users.routes");
 const sutraRoutes = require("./routes/sutra.route");
 const sutraCategoryRoutes = require('./routes/sutra-category.routes');
 const summaryRoutes = require('./routes/summary.routes');
+const eventRoutes = require('./routes/events.routes')
 
 const userService = require('./service/user.service');
 const sutraService = require('./service/sutra.service');
@@ -70,6 +71,7 @@ app.use("/api", userRoutes);
 app.use("/api", sutraRoutes);
 app.use("/api", sutraCategoryRoutes);
 app.use("/api", summaryRoutes)
+app.use("/api", eventRoutes);
 // convert xls to json
 // node_xj(
 //     {
