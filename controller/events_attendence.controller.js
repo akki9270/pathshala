@@ -14,7 +14,8 @@ exports.GET_EVENT_ATTENDENCE_BYID = async (req, res, next) => {
             include: [
                 { model: models.User, as: 'student' },
                 { model: models.User, as: 'teacher' }
-            ]
+            ],
+            order: [['id', 'desc']]
         });
         return res.status(200).send({ data: result });
     } catch (e) {
