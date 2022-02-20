@@ -12,7 +12,13 @@ module.exports = function (Sequelize, Types) {
             paranoid: true,
             freezeTableName: true,
             tableName: "events_attendence",
-            modelName: "EventsAttendence"
+            modelName: "EventsAttendence",
+            indexes: [
+                {
+                    unique: true,
+                    fields: ['event_id', 'student_id']
+                }
+            ]
         }
     );
     EventsAttendence.belongsTo(Events(Sequelize, Types), {
@@ -25,7 +31,7 @@ module.exports = function (Sequelize, Types) {
         targetKey: 'id',
         as: 'student'
     });
-    EventsAttendence.belongsTo(Events(Sequelize, Types), {
+    EventsAttendence.belongsTo(User(Sequelize, Types), {
         foreignKey: 'teacher_id',
         targetKey: 'id',
         as: 'teacher'
