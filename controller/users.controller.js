@@ -115,3 +115,22 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
     }
 
 }
+
+exports.UPDATE_USER_DATA = async (req, res, next) => {
+    let { id } = req.body;
+
+    try {
+        let User = await models.User.findOne({ where: { id }});
+        if (!User) {
+           return res.status(404).send('User not found');
+        }
+        let data = Object.assign({},req.body);
+        delete data.id;
+
+        await User.update({ ...data }, { where: { id } });
+        return res.status(200).send({data: 'Updated Successfully'});
+    } catch (e) {
+        console.log('e ', e);
+        return res.status(500).send(e)        
+    }
+}

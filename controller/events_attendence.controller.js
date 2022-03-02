@@ -32,7 +32,7 @@ exports.SAVE_EVENT_ATTENDENCE = async (req, res, next) => {
             student_id: studentId
         }
         const isExisting = await models.events_attendence.findOne({ where: { ...data } });
-        if (isExisting && isExisting.length) {
+        if (isExisting && isExisting.student_id == studentId) {
             return res.status(400).send('Already added present');
         }
         let result = models.events_attendence.create({ ...data, teacher_id: teacherId });

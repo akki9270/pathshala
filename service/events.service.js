@@ -1,3 +1,4 @@
+const { eq } = require('sequelize/lib/operators');
 const models = require('../models');
 const { TIMELOGGER } = require('../winston');
 
@@ -17,7 +18,7 @@ async function createEvent(event) {
 
 async function getEventById(id) {
     try {
-        const result = await models.Events.findOne({ where: { id } })
+        const result = await models.Events.findOne({ where: { id, deletedAt: { [eq]: null } } })
         return result;
     } catch (e) {
         TIMELOGGER.error({message: e.message || 'something went wrong', method: 'getEventById'});
@@ -27,7 +28,15 @@ async function getEventById(id) {
 
 async function getAllEvent() {
     try {
-        const result = await models.Events.findAll({});
+        const result = await models.Events.findAll({
+            where : { deletedAt: { [eq]: null } }
+        });
+        if (result && result.length) {
+            for (let re of result) {
+                let count = await models.events_attendence.count({ where: { event_id: re.id }});
+                re['dataValues']['attendance'] = count;
+            }
+        }
         return result;
     } catch (e) {
         TIMELOGGER.error({message: e.message || 'something went wrong', method: 'getEventById'});

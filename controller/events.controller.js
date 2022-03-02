@@ -54,11 +54,9 @@ exports.UPDATE_EVENT = async (req, res, next) => {
 
 exports.DELETE_EVENT = async (req, res, next) => {
     try {
-        const { id } = req.param;
+        const { id } = req.query;
         let event = await eventsService.getEventById(id);
-        await event.update({
-            deletedAt: new Date()
-        }, { where: { id }});
+        await event.destroy({ where: { id }});
         return res.status(200).send({ message: 'deleted Successfully' })
     } catch (e) {
         TIMELOGGER.error({ method: 'CREATE_EVENT', message: e.message || 'Something went wrong'});
