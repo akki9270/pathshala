@@ -2,7 +2,7 @@
 const { ne, eq } = require('sequelize/lib/operators');
 const { literal, col } = require('sequelize');
 const models = require('../models');
-const { GATHA_STATUS: { IN_PROGRESS } } = require('../_helpers/constants');
+const { GATHA_STATUS: { IN_PROGRESS }, GATHA_STATUS } = require('../_helpers/constants');
 async function createUser(user) {
     try {
         let result = [];
@@ -21,7 +21,8 @@ async function getUserGatha(id) {
     try {
         const inProgressSutra = await models.UserSutraHistory.findOne({
             where: {
-                user_id: id
+                user_id: id,
+                status: GATHA_STATUS.IN_PROGRESS
             },
             order: [['id', 'DESC']],
             limit: 1
