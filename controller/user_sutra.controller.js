@@ -43,10 +43,10 @@ exports.USER_NEXT_GATHA = async function(req, res, next) {
                 current_gatha_count: currentGathaCount
             }
         });
-        isRevisedGatha =  gathaCount && gathaCount.length > 0;
+        isRevisedGatha =  gathaCount && gathaCount.length > 0 || uSutra.revision_mode;
         if (latestSutraHistory) {
             await latestSutraHistory.update(
-                { status: DONE, approved_by: teacherId }, { transaction: t });
+                { status: DONE, approved_by: teacherId, revision_mode: isRevisedGatha ? '1' : '0' }, { transaction: t });
         }
         if (currentGathaCount < Sutra.gatha_count) {
             // increament Gatha count by 1

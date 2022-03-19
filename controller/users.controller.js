@@ -46,7 +46,7 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
             motherName, address, dob, gender, contact1,
             contact2, email, selectedSutra,
             currentGathaCount, house_number, street, area_code,
-            city, teacherId, isNew } = req.body;
+            city, teacherId, isNew, revisionMode } = req.body;
 
         let mobile = [contact1, contact2];
         let insertedUser;
@@ -80,7 +80,7 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
             userId = user_id;
             await models.User.update(user, { where: { id: user_id } });
         }
-        const ExistingUserSutraData = await models.UserSutra.findAll({
+        const ExistingUserSutraData = await models.UserSutra.findOne({
             where: {
                 current_gatha_count: currentGathaCount,
                 sutra_id: selectedSutra.id,
@@ -96,16 +96,21 @@ exports.SAVE_UPDATE_USER_GATHA = async (req, res, next) => {
             limit: 1
         });
         if(existingInprogressGatha) {
-            await existingInprogressGatha.update({ status: TERMINATED });
+            if (!(existingInprogressGatha.sutra_id == selectedSutra.id && existingInprogressGatha.current_gatha_count == currentGathaCount)) {
+                await existingInprogressGatha.update({ status: TERMINATED });
+            }
         }
-        if (!ExistingUserSutraData || !ExistingUserSutraData.length) {    
+        if (!ExistingUserSutraData) {    
             // user Sutra After creating / updating User
             const result = await models.UserSutra.create({
                 current_gatha_count: currentGathaCount,
                 sutra_id: selectedSutra.id,
                 approved_by: teacherId,
-                user_id: userId
+                user_id: userId,
+                revision_mode: revisionMode
             });
+        } else {
+            await ExistingUserSutraData.update({ revision_mode: revisionMode })
         }
 
         return res.status(200).send({ data: {id: userId} })

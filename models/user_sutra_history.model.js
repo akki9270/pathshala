@@ -9,7 +9,8 @@ module.exports = function (Sequelize, Types) {
             current_gatha_count: { type: Types.INTEGER },
             start_date: { type: Types.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
             end_date: { type: Types.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
-            status: Types.ENUM('inProgress', 'done', 'terminated')
+            status: Types.ENUM('inProgress', 'done', 'terminated'),
+            revision_mode: { type: Types.TINYINT, defaultValue: '0' }
         }, {
         timestamps: true,
         paranoid: true,
