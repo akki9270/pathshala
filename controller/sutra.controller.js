@@ -38,7 +38,9 @@ FROM
             if (gathaCount && gathaCount.length) {
                 for (g of gathaCount) {
                     let idx = result.findIndex(i => i.id === g.sutra_id);
-                    result[idx]['dataValues']['current_gatha_count'] = g.current_gatha_count;
+                    if (idx > -1) {
+                        result[idx]['dataValues']['current_gatha_count'] = g.current_gatha_count;
+                    }
                 }
             }
         }
