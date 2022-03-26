@@ -2,7 +2,7 @@ const express = require("express");
 const Router = require("express-promise-router");
 const router = new Router();
 
-const { GET_USER_DATA, SAVE_UPDATE_USER_GATHA, UPDATE_USER_DATA } = require('../controller/users.controller');
+const { GET_USER_DATA, SAVE_UPDATE_USER_GATHA, UPDATE_USER_DATA, STUDENT_USER, TEACHER_USER } = require('../controller/users.controller');
 const { GET_USER_GATHA, USER_NEXT_GATHA, UPDATE_USER_SUTRA, GET_TERMINATED_SUTRA, UPDATE_USER_SUTRA_MULTI_ENTRY } = require('../controller/user_sutra.controller');
 const { GET_CATEGORY } = require('../controller/sutra-category.controller');
 router.get('/getUserData', GET_USER_DATA);
@@ -13,5 +13,7 @@ router.post('/updateUserSutra', UPDATE_USER_SUTRA);
 router.get('/getSutraCategory', GET_CATEGORY);
 router.post('/saveUserAndGatha', SAVE_UPDATE_USER_GATHA)
 router.get('/getAllTerminatedSutra/:id', GET_TERMINATED_SUTRA);
-router.get('/updateUserMultiEntry',UPDATE_USER_SUTRA_MULTI_ENTRY)
+router.get('/updateUserMultiEntry',UPDATE_USER_SUTRA_MULTI_ENTRY);
+router.get('/getAllStudent',STUDENT_USER);
+router.get('/getAllTeacher',TEACHER_USER)
 module.exports = router

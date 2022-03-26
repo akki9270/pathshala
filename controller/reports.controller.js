@@ -28,7 +28,7 @@ exports.GET_MONTH_WISE_STUDENT_DATA = async (req, res, next) => {
     let startDate = req.query.startDate;
     let endDate = req.query.endDate;
     try {
-        let monthData = await models.sequelize.query(`SELECT  DATE(attendence_date) as Date, count(DATE(attendence_date)) as count  from attendence  where attendence_date between ` + startDate + ` and ` + endDate + ` group by DATE(attendence_date);`, {type: QueryTypes.SELECT});
+        let monthData = await models.sequelize.query(`SELECT  DATE(attendence_date) as Date, count(DATE(attendence_date)) as count  from attendence  where attendence_date between '${startDate}' and '${endDate}' group by DATE(attendence_date);`, { type: QueryTypes.SELECT });
         return res.status(200).send({monthData: monthData});
     } catch (e) {
         return res.status(500).send(e);

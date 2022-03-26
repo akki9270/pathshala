@@ -139,3 +139,23 @@ exports.UPDATE_USER_DATA = async (req, res, next) => {
         return res.status(500).send(e)        
     }
 }
+
+exports.STUDENT_USER = async (req, res, next) => {
+
+    try {
+        let students = await models.User.findAll({ where: { role : 'Student' }});
+        return res.status(200).send({data: students});
+    } catch (e) {
+        return res.status(500).send(e)
+    }
+}
+
+exports.TEACHER_USER = async (req, res, next) => {
+
+    try {
+        let students = await models.User.findAll({ where: { role : 'Teacher' }});
+        return res.status(200).send({data: students});
+    } catch (e) {
+        return res.status(500).send(e)
+    }
+}
