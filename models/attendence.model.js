@@ -19,12 +19,14 @@ module.exports = function (Sequelize, Types) {
 
     Attendence.belongsTo(User(Sequelize, Types), {
         foreignKey: 'added_by',
-        targetKey: 'id'
+        targetKey: 'id',
+        as: 'Teacher'
     });
 
     Attendence.belongsTo(User(Sequelize, Types), {
         foreignKey: 'user_id',
-        targetKey: 'id'
+        targetKey: 'id',
+        as: 'Student'
     });
     return Attendence;
 }
