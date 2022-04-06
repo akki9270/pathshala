@@ -21,7 +21,13 @@ exports.CHECK_ATTENDENCE = async function (req, res) {
     // student = student[0];
     // teacher = teacher[0];
 
+    let timezoneDiff = req._startTime ? req._startTime.getTimezoneOffset() : 0
+    let serverTimezoneOffset = new Date().getTimezoneOffset();
     let d = new Date();
+    if (timezoneDiff != serverTimezoneOffset) {
+        timezoneDiff = timezoneDiff * (60 * 1000);
+        d = new Date(new Date() - timezoneDiff);
+    };
     let dateString = `${d.getFullYear()}-${(d.getMonth() + 1)}-${d.getDate()}`;
     let attendence =
         await models.sequelize.query(

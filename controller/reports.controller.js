@@ -47,7 +47,7 @@ exports.GET_SUTRA_WISE_STUDENT_DATA = async (req, res, next) => {
                 student.first_name as studentName,
                 teacher.first_name as teacherName
             FROM
-                pathshala.user_sutra_history as sa_history
+                user_sutra_history as sa_history
                 INNER JOIN user AS student ON student.id = sa_history.user_id
                  INNER JOIN user AS teacher ON teacher.id = sa_history.approved_by
             WHERE
@@ -71,7 +71,7 @@ exports.GET_TEACHER_WISE_DATE_DATA = async (req, res, next) => {
             sutra_history.current_gatha_count as gathCount,
             sutra.name as sutraName
         FROM
-            pathshala.user_sutra_history as sutra_history
+            user_sutra_history as sutra_history
              INNER JOIN user AS student ON student.id = sutra_history.user_id
               INNER JOIN sutra AS sutra ON sutra.id = sutra_history.sutra_id
         WHERE
