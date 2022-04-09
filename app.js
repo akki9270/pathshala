@@ -14,6 +14,7 @@ const summaryRoutes = require('./routes/summary.routes');
 const eventRoutes = require('./routes/events.routes');
 const eventAttendanceRoutes = require('./routes/events-attendence.routes');
 const reportRoutes = require("./routes/reports.routes");
+const userPointRoutes = require("./routes/user_point.routes");
 
 const userService = require('./service/user.service');
 const sutraService = require('./service/sutra.service');
@@ -76,6 +77,7 @@ app.use("/api", summaryRoutes)
 app.use("/api", eventRoutes);
 app.use("/api", eventAttendanceRoutes);
 app.use("/api", reportRoutes);
+app.use("/api", userPointRoutes);
 // convert xls to json
 // node_xj(
 //     {
@@ -116,7 +118,7 @@ async function InsertData() {
                 user.date_of_birth = null;
             } else {
                 let d = new Date(user.dob)
-                let dateArray = [`${d.getFullYear()}-${(d.getMonth()+1)}-${d.getDate()}`];
+                let dateArray = [`${d.getFullYear()}-${(d.getMonth() + 1)}-${d.getDate()}`];
                 user.date_of_birth = dateArray[0];
             }
             user.profile_image = imageUrl + user.id + imageSuffix;
@@ -135,9 +137,9 @@ async function InsertData() {
     if (sutraData && !sutraData.length) {
         // insert static data.
         let sutraDataJson = require('./sutra.json');
-        sutraDataJson.forEach( it => {
+        sutraDataJson.forEach(it => {
             it["id"] = it.queue_number;
-            if(it.score == "") {
+            if (it.score == "") {
                 it.score = 0;
             }
             if (it.days_to_complete == "") {
@@ -145,10 +147,10 @@ async function InsertData() {
             }
             it["category_id"] = 1;
         })
-       let result = await sutraService.createSutra(sutraDataJson);
-    //    console.log(' sutra Data', result);
+        let result = await sutraService.createSutra(sutraDataJson);
+        //    console.log(' sutra Data', result);
     }
-    if(sutraCategory && !sutraCategory.length) {
+    if (sutraCategory && !sutraCategory.length) {
         const jsonData = require('./category.json');
         let result = await sutraCategoryService.createCategory(jsonData);
     }

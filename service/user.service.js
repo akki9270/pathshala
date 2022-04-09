@@ -17,6 +17,15 @@ async function createUser(user) {
     }
 }
 
+async function updateUser(user) {
+    try {
+        let result = await models.User.update(user, { where: { id: user.id } });
+        return { data: result };
+    } catch (e) {
+        return { isError: true, e: e };
+    }
+}
+
 async function getUserGatha(id) {
     try {
         const inProgressSutra = await models.UserSutraHistory.findOne({
@@ -27,7 +36,7 @@ async function getUserGatha(id) {
             order: [['id', 'DESC']],
             limit: 1
         });
-        if (inProgressSutra && inProgressSutra.dataValues.status != IN_PROGRESS ) {
+        if (inProgressSutra && inProgressSutra.dataValues.status != IN_PROGRESS) {
             return null;
         }
         const userGatha = await models.UserSutra.findAll({
@@ -54,5 +63,6 @@ async function getUserGatha(id) {
 
 module.exports = {
     createUser,
+    updateUser,
     getUserGatha
 }
