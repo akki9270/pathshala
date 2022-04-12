@@ -7,9 +7,9 @@ const models = require("../models");
 exports.CREATE_EVENT = async (req, res, next) => {
     try {
         const {id, event_date, event_name, description, banner_url, points } = req.body;
-        if(!event_date || moment().isAfter(event_date)) {
-            return res.status(400).send({message: 'Event Date should be greater than today'});
-        }
+        // if(!event_date || moment().isAfter(event_date)) {
+        //     return res.status(400).send({message: 'Event Date should be greater than today'});
+        // }
         if(id) {
             let event = await eventsService.getEventById(id);
 
