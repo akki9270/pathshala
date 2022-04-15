@@ -48,3 +48,14 @@ exports.GET_REWARD_BY_ID = async (req, res, next) => {
         return res.status(500).send(e);
     }
 }
+
+exports.DELETE_REWARD = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        let reward = await getRewardById(id);
+        await reward.destroy({ where: { id } });
+        return res.status(200).send({ message: 'deleted Successfully' })
+    } catch (e) {
+        return res.status(500).send(e);
+    }
+}
