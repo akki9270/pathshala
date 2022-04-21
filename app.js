@@ -17,7 +17,6 @@ const reportRoutes = require("./routes/reports.routes");
 const userPointRoutes = require("./routes/user_point.routes");
 const rewardRoutes = require("./routes/reward.routes");
 const rewardBookByRoutes = require("./routes/reward_book_by.routes");
-const studentLedgerRoutes = require("./routes/student_ledger.routes");
 
 const userService = require('./service/user.service');
 const sutraService = require('./service/sutra.service');
@@ -83,7 +82,6 @@ app.use("/api", reportRoutes);
 app.use("/api", userPointRoutes);
 app.use("/api", rewardRoutes);
 app.use("/api", rewardBookByRoutes);
-app.use("/api", studentLedgerRoutes);
 // convert xls to json
 // node_xj(
 //     {
