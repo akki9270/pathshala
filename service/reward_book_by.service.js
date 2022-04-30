@@ -3,13 +3,14 @@ const models = require('../models');
 async function getAllBookedReward() {
     try {
         let result = await models.RewardBookedBy.findAll({
+
             include: [
                 { model: models.User, as: 'Student' },
                 { model: models.Reward, as: 'Reward' }
             ],
-            order: [['start_date', 'DESC']]
+            order: [['id', 'DESC']]
         });
-        return { data: result }
+        return result;
     } catch (e) {
         return { isError: true, e: e };
     }

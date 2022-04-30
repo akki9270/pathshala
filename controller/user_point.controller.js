@@ -1,6 +1,6 @@
 const models = require("../models");
 const { updateUser } = require('../service/user.service');
-const { addBonusPoint } = require('../service/user_point.service');
+const { addBonusPoint, getAllPoint } = require('../service/user_point.service');
 
 exports.ADD_POINT = async (req, res, next) => {
     try {
@@ -32,6 +32,15 @@ exports.ADD_POINT = async (req, res, next) => {
         return res.status(200).send(result);
 
     } catch (e) {
-        return res.status(500).send('somrthing went wrong');
+        return res.status(500).send(e);
+    }
+
+}
+exports.GET_ALL_POINT = async (req, res, next) => {
+    try {
+        let data = await getAllPoint();
+        return res.status(200).send({ data });
+    } catch (e) {
+        return res.status(500).send(e);
     }
 }

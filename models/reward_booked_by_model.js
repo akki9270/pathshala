@@ -4,13 +4,13 @@ module.exports = function (Sequelize, Types) {
     let RewardBookedBy = Sequelize.define(
         "RewardBookedBy",
         {
-            id: {type: Types.INTEGER, autoIncrement: true, primaryKey: true}
+            id: { type: Types.INTEGER, autoIncrement: true, primaryKey: true }
         }, {
-            paranoid: true,
-            freezeTableName: true,
-            tableName: "reward_booked_by",
-            modelName: "RewardBookedBy"
-        });
+        paranoid: true,
+        freezeTableName: true,
+        tableName: "reward_booked_by",
+        modelName: "RewardBookedBy"
+    });
     RewardBookedBy.belongsTo(User(Sequelize, Types), {
         foreignKey: 'user_id',
         targetKey: 'id',

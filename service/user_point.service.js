@@ -3,7 +3,7 @@ const models = require('../models');
 
 async function addBonusPoint(UserPoint) {
     try {
-        let result = await models.UserPointHistory.create({ UserPoint });
+        let result = await models.UserPointHistory.create(UserPoint);
         return { data: result }
     } catch (e) {
         console.log(e)
@@ -11,6 +11,24 @@ async function addBonusPoint(UserPoint) {
     }
 }
 
+async function getAllPoint() {
+    try {
+        const result = await models.UserPointHistory.findAll({
+
+            include: [
+                { model: models.User, as: 'Teacher' },
+                { model: models.User, as: 'Student' }
+            ],
+            order: [['id', 'DESC']]
+
+        });
+        return result;
+    } catch (e) {
+        return e;
+    }
+}
+
 module.exports = {
-    addBonusPoint
+    addBonusPoint,
+    getAllPoint
 }
