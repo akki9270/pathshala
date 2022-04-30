@@ -1,5 +1,7 @@
 const { eq } = require('sequelize/lib/operators');
 const models = require('../models');
+const { Op } = require("sequelize");
+const moment = require("moment");
 
 async function addBonusPoint(UserPoint) {
     try {
@@ -28,7 +30,30 @@ async function getAllPoint() {
     }
 }
 
+async function studentPointHistory(userId, startDate, endDate) {
+    try {
+        const result = await models.UserPointHistory.findAll({
+            include: [
+                { model: models.User, as: 'Teacher' },
+                { model: models.User, as: 'Student' }
+            ],
+            where: {
+                user_id: userId,
+                createdAt: {
+                    [Op.gte]: moment(startDate).startOf('day').toDate(),
+                    [Op.lt]: moment(endDate).endOf('day').toDate()
+                }
+            },
+            order: [['id', 'DESC']]
+        });
+        return result;
+    } catch (e) {
+        return e;
+    }
+}
+
 module.exports = {
     addBonusPoint,
-    getAllPoint
+    getAllPoint,
+    studentPointHistory
 }

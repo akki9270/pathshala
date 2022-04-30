@@ -4,7 +4,8 @@ module.exports = function (Sequelize, Types) {
     let RewardBookedBy = Sequelize.define(
         "RewardBookedBy",
         {
-            id: { type: Types.INTEGER, autoIncrement: true, primaryKey: true }
+            id: { type: Types.INTEGER, autoIncrement: true, primaryKey: true },
+            isRedeem : {type: Types.TINYINT, defaultValue: '0'}
         }, {
         paranoid: true,
         freezeTableName: true,
