@@ -21,7 +21,18 @@ exports.GET_USER_DATA = async (req, res, next) => {
                     where: {
                         user_id: id,
                         attendence_date: {
-                            [Op.gte]: moment().startOf('year').startOf('day').toDate()
+                            [Op.gte]: moment().startOf('month').startOf('day').toDate()
+                        }
+                    }
+                });
+                prevMonthAttendance = await models.Attendence.count({
+                    distinct: true,
+                    col: 'id',
+                    where: {
+                        user_id: id,
+                        attendence_date: {
+                            [Op.gte]: moment().subtract(1,'month').startOf('month').startOf('day').toDate(),
+                            [Op.lte]: moment().subtract(1,'month').endOf('month').startOf('day').toDate()
                         }
                     }
                 });
@@ -32,7 +43,7 @@ exports.GET_USER_DATA = async (req, res, next) => {
         // }
     
         // console.log(' userGatha ', userGatha);
-        return res.status(200).send({ data: result, gatha: userGatha, presentDays });
+        return res.status(200).send({ data: result, gatha: userGatha, presentDays, prevMonthAttendance });
     } catch (e) {
         return res.status(500).send(e);
     }
