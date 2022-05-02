@@ -1,9 +1,8 @@
 const { getAllReward, createReward, getRewardById } = require('../service/reward.service');
 
 exports.GET_ALL_REWARD = async (req, res, next) => {
-    const { startDate, endDate } = req.query;
     try {
-        let result = await getAllReward(startDate, endDate);
+        let result = await getAllReward();
         return res.status(200).send({ data: result });
     } catch (e) {
         return res.status(500).send(e);
