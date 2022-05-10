@@ -1,4 +1,6 @@
 const { getAllReward, createReward, getRewardById } = require('../service/reward.service');
+const { QueryTypes } = require("sequelize");
+const models = require('../models');
 
 exports.GET_ALL_REWARD = async (req, res, next) => {
     try {
@@ -54,6 +56,20 @@ exports.DELETE_REWARD = async (req, res, next) => {
         let reward = await getRewardById(id);
         await reward.destroy({ where: { id } });
         return res.status(200).send({ message: 'deleted Successfully' })
+    } catch (e) {
+        return res.status(500).send(e);
+    }
+}
+
+exports.GET_REWARD_BY_DATE = async (req, res, next) => {
+    let startDate = req.query.start_date;
+    let endDate = req.query.end_date;
+    try {
+        let dateReward = await models.sequelize.query(`SELECT * from reward  
+                                                        where start_date LIKE '${startDate}%' and end_date LIKE '${endDate}%' and deletedAt IS null;`
+            , { type: QueryTypes.SELECT });
+
+        return res.status(200).send({ dateReward: dateReward });
     } catch (e) {
         return res.status(500).send(e);
     }
