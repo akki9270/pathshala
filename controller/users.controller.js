@@ -41,10 +41,11 @@ exports.GET_USER_DATA = async (req, res, next) => {
         }
         if (result && result.length) {
             result[0]['dataValues']['presentDays'] = presentDays;
+            result[0]['dataValues']['prevMonthAttendance'] = prevMonthAttendance;
         }
 
         console.log(' userGatha ', userGatha);
-        return res.status(200).send({ data: result, gatha: userGatha, presentDays });
+        return res.status(200).send({ data: result, gatha: userGatha, presentDays, prevMonthAttendance });
     } catch (e) {
         console.log(e)
         return res.status(500).send(e);
