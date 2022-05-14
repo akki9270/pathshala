@@ -40,28 +40,28 @@ exports.GET_SUTRA_WISE_STUDENT_DATA = async (req, res, next) => {
     let status =  req.query.status;
     let statusQuery ='';
     if (status == 'completed') {
-        statusQuery = ' and sa_history.start_date != sa_history.end_date ';
+        statusQuery = ' and u_sa.start_date != u_sa.end_date ';
     } else if (status == 'inProgress'){
-        statusQuery = ' and sa_history.start_date = sa_history.end_date ';
+        statusQuery = ' and u_sa.start_date = u_sa.end_date ';
     }
     try {
         let sutraData = await models.sequelize.query(`select user_id as studentId, studentName,  teacherName, days, status from  (SELECT 
-                sa_history.start_date,
-                sa_history.updatedAt,
+                u_sa.start_date,
+                u_sa.updatedAt,
                 user_id,
                 approved_by,
-                DATEDIFF(sa_history.updatedAt, sa_history.start_date) as days,
+                DATEDIFF(u_sa.updatedAt, u_sa.start_date) as days,
                 student.first_name as studentName,
                 teacher.first_name as teacherName,
-                IF(sa_history.start_date = sa_history.end_date, "In Progress", "Completed") as status
+                IF(u_sa.start_date = u_sa.end_date, "In Progress", "Completed") as status
             FROM
-                user_sutra_history as sa_history 
-                INNER JOIN user AS student ON student.id = sa_history.user_id
-                 INNER JOIN user AS teacher ON teacher.id = sa_history.approved_by
+                user_sutra as u_sa 
+                INNER JOIN user AS student ON student.id = u_sa.user_id
+                 INNER JOIN user AS teacher ON teacher.id = u_sa.approved_by
             WHERE
                 sutra_id = ${sutraId}  ${statusQuery}
-            GROUP BY user_id , sa_history.updatedAt
-            ORDER BY sa_history.id DESC) as abc  group by user_id`, {type: QueryTypes.SELECT});
+            GROUP BY user_id , u_sa.updatedAt
+            ORDER BY u_sa.id DESC) as abc  group by user_id`, {type: QueryTypes.SELECT});
         return res.status(200).send({sutraData: sutraData});
     } catch (e) {
         return res.status(500).send(e);
