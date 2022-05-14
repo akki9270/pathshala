@@ -37,21 +37,29 @@ exports.GET_MONTH_WISE_STUDENT_DATA = async (req, res, next) => {
 
 exports.GET_SUTRA_WISE_STUDENT_DATA = async (req, res, next) => {
     let sutraId = req.query.sutraId;
+    let status =  req.query.status;
+    let statusQuery ='';
+    if (status == 'completed') {
+        statusQuery = ' and sa_history.start_date != sa_history.end_date ';
+    } else if (status == 'inProgress'){
+        statusQuery = ' and sa_history.start_date = sa_history.end_date ';
+    }
     try {
-        let sutraData = await models.sequelize.query(`select user_id as studentId, studentName,  teacherName, days from  (SELECT 
+        let sutraData = await models.sequelize.query(`select user_id as studentId, studentName,  teacherName, days, status from  (SELECT 
                 sa_history.start_date,
                 sa_history.updatedAt,
                 user_id,
                 approved_by,
                 DATEDIFF(sa_history.updatedAt, sa_history.start_date) as days,
                 student.first_name as studentName,
-                teacher.first_name as teacherName
+                teacher.first_name as teacherName,
+                IF(sa_history.start_date = sa_history.end_date, "In Progress", "Completed") as status
             FROM
-                user_sutra_history as sa_history
+                user_sutra_history as sa_history 
                 INNER JOIN user AS student ON student.id = sa_history.user_id
                  INNER JOIN user AS teacher ON teacher.id = sa_history.approved_by
             WHERE
-                sutra_id = ${sutraId}
+                sutra_id = ${sutraId}  ${statusQuery}
             GROUP BY user_id , sa_history.updatedAt
             ORDER BY sa_history.id DESC) as abc  group by user_id`, {type: QueryTypes.SELECT});
         return res.status(200).send({sutraData: sutraData});
