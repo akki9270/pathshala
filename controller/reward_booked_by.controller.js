@@ -2,8 +2,7 @@ const { getAllBookedReward, bookReward, bookRewardByUser, redeemReward, cancleRe
 
 exports.GET_ALL_BOOKED_REWARD = async (req, res, next) => {
     try {
-        const id = req.params.id;
-        let result = await getAllBookedReward(id);
+        let result = await getAllBookedReward();
         return res.status(200).send({ data: result });
     } catch (e) {
         return res.status(500).send(e);
