@@ -62,11 +62,9 @@ exports.DELETE_REWARD = async (req, res, next) => {
 }
 
 exports.GET_REWARD_BY_DATE = async (req, res, next) => {
-    let startDate = req.query.start_date;
-    let endDate = req.query.end_date;
     try {
         let dateReward = await models.sequelize.query(`SELECT * from reward  
-                                                        where start_date LIKE '${startDate}%' and end_date LIKE '${endDate}%' and deletedAt IS null;`
+                                                        where end_date > now() and deletedAt IS null;`
             , { type: QueryTypes.SELECT });
 
         return res.status(200).send({ dateReward: dateReward });
